@@ -19,46 +19,13 @@ export class HttpClientInterceptor implements HttpInterceptor {
               headers: request.headers.set('Content-Type', 'application/json')
             });
         }
-        request = this.addAccessToken(request);
         return next.handle(request).pipe(
           catchError((error) => {
             const isUnauthorizedError = error.status === 401;
             const isUnknownError = error.statusText === 'Unknown Error' || error.status === 0 || error.status === 500 || error.status === 504;
-            if (isUnauthorizedError) {
-              
-              let UserInfo = this.accountService.getUserInfo();
-            
-              if(UserInfo.refreshToken && UserInfo.jwt){
-                  let obj = {
-                    accessToken: UserInfo.jwt,
-                    refreshToken : UserInfo.refreshToken
-                  }
-                  localStorage.removeItem('UserInfo');
-                  this.accountService.refreshToken(obj).subscribe(res => {
-
-                    if(res.errorCode == "00") {
-                      localStorage.setItem('UserInfo', JSON.stringify(res));
-                      location.reload();
-                    }
-                  })
-              }
-            }
             return throwError(error);
           })
         );
       }
 
-      private addAccessToken(request: HttpRequest<any>): HttpRequest<any> {
-        const userInfo = this.accountService.getUserInfo();
-        
-        if (!userInfo) {
-          return request;
-        }
-
-        return request.clone({
-          setHeaders: {
-            Authorization: "Bearer " + userInfo.jwt
-          }
-        });
-    }
 }
