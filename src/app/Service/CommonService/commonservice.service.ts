@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class CommonserviceService {
 
   // _urlApi: string = environment.urlApi + '/api/';
-  //  _urlApi: string = 'http://localhost:5000/api/';
+  //  _urlApi: string = '45.124.94.191:8090/api/';
   public _urlApi: string = 'http://45.124.94.191:8090/api/';
   public static Token: string = "";
 
@@ -53,34 +53,50 @@ export class CommonserviceService {
 
   }
 
-  postRequest(url: string, data: any): Observable<any> {
-    return this.http.post(this._urlApi + url, data);
+  addCustomers(url: string, Token: string) : Observable<any>
+  {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + Token,
+    });
+    return this.http.post<any>(this._urlApi + url, {
+      headers: headers,
+    });
   }
 
-  putRequest(url: string, data: any): Observable<any> {
-    return this.http.put(this._urlApi + url, data);
+  getCustomer(url: string, Token: string, data: any) : Observable<any>
+  {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + Token,
+    });
+    return this.http.post<any>(this._urlApi + url, data, {
+      headers: headers,
+    });
   }
 
-  deleteRequest(url: string): Observable<any> {
-    return this.http.delete(this._urlApi + url);
+
+  updateGroup(url: string, Token: string) : Observable<any>
+  {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + Token,
+    });
+    return this.http.post<any>(this._urlApi + url, {
+      headers: headers,
+    });
   }
 
-  uploadRequest(url: string, data: any): Observable<any> {
-    return this.http.post(this._urlApi + url, data, { reportProgress: true });
+  addCampaign(url: string, Token: string)
+  {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + Token,
+    });
+    return this.http.post<any>(this._urlApi + url, {
+      headers: headers,
+    });
   }
 
-  downloadRequest(url: string, id?: number): Observable<any> {
-    if (id) {
-      return this.http.get(`${this._urlApi + url}/${id}`, { responseType: 'blob' })
-    }
-    return this.http.get(`${this._urlApi + url}`, { responseType: 'blob' })
-  }
 
-  DowloadRequest(url: string): Observable<any> {
-    return this.http.get(this._urlApi + url, { reportProgress: true, responseType: 'blob', });
-  }
-
-  postRequestMobile(url: string, data: any): Observable<any> {
-    return this.http.post(this._urlApi + url, data);
-  }
 }

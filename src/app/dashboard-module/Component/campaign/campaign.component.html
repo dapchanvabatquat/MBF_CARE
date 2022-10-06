@@ -1,1 +1,56 @@
-<p>campaign works!</p>
+<div style="position: absolute; top: 40%; left: 40%;">
+    <!-- <mat-spinner></mat-spinner> -->
+  </div>
+  <div style="background-color: white; padding: 20px 23px; border: 1px solid rgba(0,0,0,.125);">
+  
+    <div class="row">
+      <div class="row">
+          <h2 class="col-sm-6" style="font-weight: 500;">Danh sách khách hàng</h2>
+          <div class="mb-3 col-sm-6" style="text-align: right;">
+            <!-- <input type="text" class="form-control" placeholder="Tìm kiếm" aria-label="Recipient's username" aria-describedby="button-addon2" [(ngModel)]="PageInfo.Keyword" (ngModelChange)="onSearch($event)"> -->
+            <button class="btn btn-outline-secondary" type="button" id="button-addon3">Cập nhật khách hàng</button>
+            &nbsp;
+            <button class="btn btn-outline-secondary" type="button" id="button-addon3">Cập nhật nhóm</button>
+        </div>
+        <div class="mb-3 col-sm-6" style="text-align: right;">
+        </div>
+      </div>
+  
+    </div>
+
+  
+    <div class="row">
+      <!-- <div *ngIf="isLoading">
+          </div> -->
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th style="text-align: center;">STT</th>
+              <th>Họ và Tên</th>
+              <th>Email</th>
+              <th>Số điện thoại</th>
+              <!-- <th>Địa chỉ</th> -->
+            </tr>
+          </thead>
+          <tbody style="border-top: none;">
+            <!-- <tr *ngIf="isLoading">
+                        <td colspan="5">
+                          <app-loading [isLoading]="isLoading"></app-loading>
+                        </td>
+                    </tr> -->
+            <!-- <tr *ngFor="let item of Emp; index as i" class="align-middle">
+              <td style="text-align: center;">{{i + 1}}</td>
+              <td>{{item.UserName}}</td>
+              <td>{{item.FullName}}</td>
+              <td>{{item.Phone}}</td>
+
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+  
+    </div>
+  
+  </div>
+  

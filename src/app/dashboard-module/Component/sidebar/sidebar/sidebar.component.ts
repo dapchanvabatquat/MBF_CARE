@@ -109,7 +109,7 @@ export class SidebarComponent implements OnInit {
 
   ChangeUrl(url: string) {
     console.log(url);
-    // this.router.navigate(['/Home/' + url]);
+   this.router.navigate(['/Home/' + url]);
   }
 
 }
