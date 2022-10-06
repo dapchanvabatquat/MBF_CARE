@@ -10,7 +10,8 @@ export class CommonserviceService {
 
   // _urlApi: string = environment.urlApi + '/api/';
   //  _urlApi: string = '45.124.94.191:8090/api/';
-  public _urlApi: string = 'http://45.124.94.191:8090/api/';
+  // public _urlApi: string = 'http://45.124.94.191:8090/api/';
+  public _urlApi: string = 'http://localhost:1195/api/';
   public static Token: string = "";
 
   constructor(
@@ -53,8 +54,7 @@ export class CommonserviceService {
 
   }
 
-  addCustomers(url: string, Token: string) : Observable<any>
-  {
+  addCustomers(url: string, Token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + Token,
@@ -64,8 +64,7 @@ export class CommonserviceService {
     });
   }
 
-  getCustomer(url: string, Token: string, data: any) : Observable<any>
-  {
+  getCustomer(url: string, Token: string, data: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + Token,
@@ -76,8 +75,7 @@ export class CommonserviceService {
   }
 
 
-  updateGroup(url: string, Token: string) : Observable<any>
-  {
+  updateGroup(url: string, Token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + Token,
@@ -87,8 +85,7 @@ export class CommonserviceService {
     });
   }
 
-  addCampaign(url: string, Token: string)
-  {
+  addCampaign(url: string, Token: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + Token,

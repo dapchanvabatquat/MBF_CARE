@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Pagination } from '../../Model/Table'
-interface PageData  {
+interface PageData {
   page: number,
   pageSize: number
 }
@@ -12,16 +12,16 @@ interface PageData  {
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent {
-  
 
-  pagedata : PageData = {
-    page : 1,
-    pageSize : 10,
+
+  pagedata: PageData = {
+    page: 1,
+    pageSize: 10,
   };
 
-  isDisablePlus : boolean = false;
-  isDisableMinus : boolean = true;
-  
+  isDisablePlus: boolean = false;
+  isDisableMinus: boolean = true;
+
   @Output() changePage = new EventEmitter();
   @Input() Pagination!: any;
 
@@ -29,19 +29,19 @@ export class PaginationComponent {
   formItem: any = {};
 
   constructor() {
-    
+
   }
 
-  ChoosePage(currentPage:number){
+  ChoosePage(currentPage: number) {
     this.Pagination.currentPage = currentPage;
     this.sendDate();
   }
-  
-  selectSizePage(event: any){
+
+  selectSizePage(event: any) {
     this.size = event.target.value
     this.sendDate();
   }
-  sendDate(){
+  sendDate() {
     this.formItem.pageSize = this.size
     this.formItem.page = this.Pagination.currentPage
     this.changePage.emit(this.formItem);

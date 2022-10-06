@@ -21,7 +21,8 @@
           <a (click)="ChoosePage(1)">&laquo;</a>
           <a class="displayPage" (click)="ChoosePage(1)" *ngIf="Pagination.currentPage > 1">1</a>
 
-          <a *ngIf="Pagination.currentPage-2 > 1">...</a>
+
+          <a *ngIf="Pagination.currentPage-1 > 1">...</a>
 
           <a (click)="ChoosePage(Pagination.currentPage -1)" *ngIf="Pagination.currentPage-1 > 1">{{Pagination.currentPage -
               1}}</a>

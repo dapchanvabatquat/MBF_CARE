@@ -70,7 +70,7 @@ export class CustomerComponent implements OnInit {
   constructor(
     private customerService: CustomerService
   ) {
-    this.getCustomer("", 1, 10, 1);
+    this.getCustomer("", 1, 10);
   }
 
   ngOnInit(): void {
@@ -94,7 +94,7 @@ export class CustomerComponent implements OnInit {
     })
   }
 
-  getCustomer(KeyWord: string, PageNumber: number, PageSize: number, CurrentPage: number) {
+  getCustomer(KeyWord: string, PageNumber: number, PageSize: number) {
     this.Data2 = this.customerService.getCustomer(KeyWord, PageNumber, PageSize);
     this.Data2.subscribe((data: any) => {
       if (data) {
@@ -104,20 +104,28 @@ export class CustomerComponent implements OnInit {
         this.CustomerSearchAll = this.CustomerSearchData;
 
         for (let i = 0; i < this.CustomerSearch.length; i++) {
+
+          if (PageNumber == 1 && i == 0) {
+
+            this.PageInfo.page = 1;
+            this.PageInfo.pageSize = 10;
+
+
+          }
           let item = this.CustomerSearch[i];
-          this.Pagination.pageSize = (Number(item.totalRecord) / Number(item.totalPage))
+          this.Pagination.pageSize = PageSize;
           this.Pagination.totalPage = item.totalPage;
+          this.Pagination.totalRecord = item.totalRecord;
 
         }
-        this.Pagination.currentPage = CurrentPage;
 
-        this.Pagination.totalRecord = this.CustomerSearch.length
 
       }
     })
   }
 
   onChangePage(pageOfItems: any) {
+
     pageOfItems.Keyword = this.PageInfo.Keyword;
     this.PageInfo = pageOfItems
     this.Pagingdata(pageOfItems)
@@ -125,12 +133,7 @@ export class CustomerComponent implements OnInit {
 
   Pagingdata(PageInfo: any) {
 
-    this.Pagination.currentPage = PageInfo.currentPage,
-      this.Pagination.pageSize = PageInfo.pageSize,
-      this.Pagination.totalPage = PageInfo.totalPage,
-      this.Pagination.totalRecord = this.CustomerSearch.length;
-
-    this.getCustomer("", this.Pagination.totalPage, this.Pagination.pageSize, this.Pagination.currentPage)
+    this.getCustomer("", PageInfo.page, PageInfo.pageSize)
 
   }
 
