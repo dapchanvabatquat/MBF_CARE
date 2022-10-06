@@ -50,12 +50,12 @@ export const ROUTE_DATA: TypeRoute[] = [
                 // roles: ["Admin"],
             },
             {
-                name: 'Chân dung khách hàng',
+                name: 'Nhóm chân dung khách hàng',
                 url: 'chandungkhachhang',
                 // roles: ["Admin"],
             },
             {
-                name: 'Hành vi khách hàng',
+                name: 'Nhóm hành vi khách hàng',
                 url: 'hanhvikhachhang',
                 // roles: ["Admin"],
             },
@@ -65,13 +65,13 @@ export const ROUTE_DATA: TypeRoute[] = [
                 // roles: ["Admin"],
             },
             {
-                name: 'Chỉ số kpi',
+                name: 'Nhóm chỉ số kpi',
                 url: 'chisokpi',
                 // roles: ["Admin"],
             }
             ,
             {
-                name: 'Xu hướng',
+                name: 'Nhóm xu hướng',
                 url: 'xuhuong',
                 // roles: ["Admin"],
             }
@@ -84,7 +84,12 @@ export const ROUTE_DATA: TypeRoute[] = [
         children: [
 
             {
-                name: 'Chiến dịch',
+                name: 'Xu hướng khách hàng',
+                url: 'xuhuong',
+                // roles: ["SuperAdmin", "Admin"],
+            },
+            {
+                name: 'Chiến dịch CSKH',
                 url: 'chiendich',
                 // roles: ["SuperAdmin", "Admin"],
             }
