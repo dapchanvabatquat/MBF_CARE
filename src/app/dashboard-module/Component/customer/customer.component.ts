@@ -102,7 +102,6 @@ export class CustomerComponent implements OnInit {
         this.CustomerSearchData = data;
         this.CustomerSearch = data;
         this.CustomerSearchAll = this.CustomerSearchData;
-console.log(this.CustomerSearch)
 
         for (let i = 0; i < this.CustomerSearch.length; i++) {
           let item = this.CustomerSearch[i];
