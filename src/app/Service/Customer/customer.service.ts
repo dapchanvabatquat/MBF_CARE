@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
+import { lstCustomer } from 'src/app/Model/Customer';
 import { CommonserviceService } from '../CommonService/commonservice.service';
 
 @Injectable({
@@ -34,7 +36,17 @@ export class CustomerService {
   getCustomer(KeyWord: string, PageNumber: number, PageSize: number)
   {
     this._Token = localStorage.getItem("Token");
-    return this.httpService.getCustomer('/getCustomer', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize});
+    return this.httpService.getCustomer('/getCustomer', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize})
+    .pipe(map((data: lstCustomer) => {
+      return data;
+    }));
+  }
+
+  Paging(page: number, searchText: string, numberDis: number) {
+    return this.httpService.getRequest('admin/ManageAccount' + '?page=' + page + '&Keyword=' + searchText + '&pageSize=' + numberDis)
+      .pipe(map((data: lstCustomer) => {
+        return data;
+      }))
   }
 
 }
