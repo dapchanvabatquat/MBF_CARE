@@ -7,10 +7,15 @@ export interface Campaign {
     DayBegin: string,
     DayEnd: string,
     Act_SMS: boolean,
+    Act_SMS_Content: string,
     Act_Zalo: boolean,
+    Act_Zalo_Content: string,
     Act_FB: boolean,
+    Act_FB_Content: string,
     Act_CallOut: boolean,
+    Act_CallOut_Content: string,
     Act_AICallcenter: boolean,
+    Act_AICallcenter_Content: string,
     K1: boolean,
     K2: boolean,
     K3: boolean,
@@ -27,3 +32,8 @@ export interface Campaign {
     PageSize: number
 
 }
+
+export interface CampaignGroup {
+    Id: number;
+    Name: string;
+  }

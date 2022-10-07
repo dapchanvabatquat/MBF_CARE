@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private share: AccountService,
     private router: Router,
-    private toatr: ToastrcustomService) {
+    private toatr: ToastrcustomService
+    ) {
     this.User.MaDonVi = localStorage.getItem("MaDonVi");
     this.Org.username = this.User.MaDonVi;
     this.User.TaiKhoan = localStorage.getItem("TaiKhoan");

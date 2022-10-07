@@ -8,12 +8,13 @@
       <h2 class="col-sm-6" style="font-weight: 500;">Danh sách chiến dịch</h2>
       <div class="mb-3 col-sm-6" style="text-align: right;">
 
-        <button class="btn btn-outline-secondary" title="Cập nhật khách hàng" style="text-align: right;font-size: 10px!important;" type="button" id="button-addon3" (click)="updateCustomers()">
-          <mat-icon>person_add</mat-icon></button>
-        &nbsp;
-        <button class="btn btn-outline-secondary" title="Cập nhật nhóm khách hàng" style="text-align: right;font-size: 10px!important;" type="button" id="button-addon3" (click)="updateCustomerGroup()">
-          <mat-icon>group_add</mat-icon>  
+        <button class="btn btn-outline-secondary" title="Tạo chiến dịch" style="text-align: right; font-size: 10px!important;" type="button" id="button-addon3" (click)="openCreate()">
+          <mat-icon style="vertical-align: middle;">add_circle_outline</mat-icon>
         </button>
+        <!-- &nbsp; -->
+        <!-- <button class="btn btn-outline-secondary" title="Cập nhật nhóm khách hàng" style="text-align: right;font-size: 10px!important;" type="button" id="button-addon3" (click)="updateCustomerGroup()">
+          <mat-icon>group_add</mat-icon>  
+        </button> -->
       </div>
     </div>
 
@@ -31,7 +32,7 @@
             <th>Tên chiến dịch</th>
             <th style="width:150px!important;">Từ ngày</th>
             <th style="width:150px!important;">Đến ngày</th>
-
+            <th style="width: 150px !important; text-align: end;"></th>
           </tr>
         </thead>
         <tbody style="border-top: none; width: 99%;">
@@ -45,7 +46,7 @@
             <td>{{item.Name}}</td>
             <td>{{item.DayBegin}}</td>
             <td>{{item.DayEnd}}</td>
-
+            <td><mat-icon title="Sửa thông tin">edit</mat-icon></td>
           </tr>
         </tbody>
       </table>

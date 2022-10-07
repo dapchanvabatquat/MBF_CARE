@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { ToastrcustomService } from 'src/app/Interceptor/toastrcustom';
 import { Campaign } from 'src/app/Model/Campaign';
 import { Pagination } from 'src/app/Model/Table';
 import { CustomerService } from 'src/app/Service/Customer/customer.service';
+import { CampaignaddComponent } from 'src/app/dashboard-module/Component/campaignadd/campaignadd.component';
 
 @Component({
   selector: 'app-campaign',
@@ -32,10 +35,15 @@ export class CampaignComponent implements OnInit {
     DayBegin: '',
     DayEnd: '',
     Act_SMS: false,
+    Act_SMS_Content: '',
     Act_Zalo: false,
+    Act_Zalo_Content: '',
     Act_FB: false,
+    Act_FB_Content: '',
     Act_CallOut: false,
+    Act_CallOut_Content: '',
     Act_AICallcenter: false,
+    Act_AICallcenter_Content: '',
     K1: false,
     K2: false,
     K3: false,
@@ -99,7 +107,9 @@ export class CampaignComponent implements OnInit {
   }
 
   constructor(
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    public dialog: MatDialog,
+    private toastr: ToastrcustomService
   ) {
     this.getCampaign("", 1, 10);
   }
@@ -164,6 +174,20 @@ export class CampaignComponent implements OnInit {
 
       }
     })
+  }
+
+  openCreate() {
+    const dialogRef = this.dialog.open(CampaignaddComponent, { width: '1200px', height: '750px' });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.statusCode === 200) {
+          this.toastr.showSuccess(result.message);
+          this.Pagingdata(this.PageInfo);
+        } else {
+          this.toastr.showError(result.message);
+        }
+      }
+    });
   }
 
   onChangePage(pageOfItems: any) {

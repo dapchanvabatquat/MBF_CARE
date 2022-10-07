@@ -10,8 +10,8 @@ export class CommonserviceService {
 
   // _urlApi: string = environment.urlApi + '/api/';
   //  _urlApi: string = '45.124.94.191:8090/api/';
-  public _urlApi: string = 'http://45.124.94.191:8090/api/';
-  // public _urlApi: string = 'http://localhost:1195/api/';
+  // public _urlApi: string = 'http://45.124.94.191:8090/api/';
+  public _urlApi: string = 'http://localhost:1195/api/';
   public static Token: string = "";
 
   constructor(
@@ -96,12 +96,12 @@ export class CommonserviceService {
     });
   }
 
-  addCampaign(url: string, Token: string) {
+  addCampaign(url: string, Token: string, Data: any): Observable<any>  {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + Token,
     });
-    return this.http.post<any>(this._urlApi + url, {
+    return this.http.post<any>(this._urlApi + url, Data, {
       headers: headers,
     });
   }
