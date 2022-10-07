@@ -42,6 +42,15 @@ export class CustomerService {
     }));
   }
 
+  getCampaign(KeyWord: string, PageNumber: number, PageSize: number)
+  {
+    this._Token = localStorage.getItem("Token");
+    return this.httpService.getCampaign('/getCampaign', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize})
+    .pipe(map((data: lstCustomer) => {
+      return data;
+    }));
+  }
+
   Paging(page: number, searchText: string, numberDis: number) {
     return this.httpService.getRequest('admin/ManageAccount' + '?page=' + page + '&Keyword=' + searchText + '&pageSize=' + numberDis)
       .pipe(map((data: lstCustomer) => {

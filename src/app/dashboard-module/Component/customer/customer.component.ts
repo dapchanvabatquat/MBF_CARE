@@ -74,6 +74,7 @@ export class CustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   updateCustomers() {
@@ -110,7 +111,6 @@ export class CustomerComponent implements OnInit {
             this.PageInfo.page = 1;
             this.PageInfo.pageSize = 10;
 
-
           }
           let item = this.CustomerSearch[i];
           this.Pagination.pageSize = PageSize;
@@ -128,6 +128,7 @@ export class CustomerComponent implements OnInit {
 
     pageOfItems.Keyword = this.PageInfo.Keyword;
     this.PageInfo = pageOfItems
+    console.log("131", this.PageInfo);
     this.Pagingdata(pageOfItems)
   }
 
