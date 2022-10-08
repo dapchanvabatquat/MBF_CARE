@@ -143,7 +143,6 @@ export class CampaignComponent implements OnInit {
         this.CampaignSearchData = data;
         this.CampaignSearch = data;
         this.CampaignSearchAll = this.CampaignSearchData;
-
         for (let i = 0; i < this.CampaignSearch.length; i++) {
 
           if (PageNumber == 1 && i == 0) {
@@ -194,7 +193,6 @@ export class CampaignComponent implements OnInit {
 
     pageOfItems.Keyword = this.PageInfo.Keyword;
     this.PageInfo = pageOfItems
-    console.log("131", this.PageInfo);
     this.Pagingdata(pageOfItems)
   }
 
