@@ -92,6 +92,7 @@ export class CampaignaddComponent implements OnInit {
 
 
   CampaignGroup!: Array<{ Id: number, Name: string }>;
+  CampaignKpi!: Array<{ Id: number, Check: boolean, Code: string; Name: string }>;
 
 
 
@@ -106,6 +107,7 @@ export class CampaignaddComponent implements OnInit {
 
 
     this.getCampaignGroup();
+    this.getCampaignKpi();
 
   }
 
@@ -124,6 +126,23 @@ export class CampaignaddComponent implements OnInit {
     })
   }
 
+  getCampaignKpi() {
+    this.Data = this.customerService.getCampaignKpi("", 1, 100);
+    this.Data.subscribe((data: any) => {
+      if (data) {
+        this.CampaignKpi = data;
+        for(let i = 0; i<this.CampaignKpi.length; i++)
+        {
+          let item = this.CampaignKpi[i];
+          item.Check = false;
+        }
+        console.log("133", this.CampaignKpi)
+
+
+      }
+    })
+  }
+
 
 
 
@@ -134,7 +153,7 @@ export class CampaignaddComponent implements OnInit {
       return;
     }
     this.Camp.GroupId = this.selectedValueGroupId;
-    this.Camp.Name = this.Description;
+    this.Camp.Name = this.Name;
     this.Camp.DayBegin = this.DayBegin;
     this.Camp.DayEnd = this.DayEnd;
     this.Camp.Act_SMS = this.Act_SMS;

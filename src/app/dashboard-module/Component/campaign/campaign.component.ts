@@ -179,7 +179,7 @@ export class CampaignComponent implements OnInit {
   }
 
   openCreate() {
-    const dialogRef = this.dialog.open(CampaignaddComponent, { width: '1200px', height: '750px' });
+    const dialogRef = this.dialog.open(CampaignaddComponent, { width: '1300px', height: '750px' });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (result.statusCode === 200) {

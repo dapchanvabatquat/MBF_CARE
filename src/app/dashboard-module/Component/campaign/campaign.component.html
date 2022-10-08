@@ -29,7 +29,7 @@
       <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <th style="width:30px;"><mat-icon title="Trạng thái chiến dịch">loyalty</mat-icon></th>
+            <th style="width: 10px!important;"><mat-icon style="padding-top: 7px;" title="Trạng thái chiến dịch">list</mat-icon></th>
             <th>Tên chiến dịch</th>
             <th style="width:100px!important;">Từ ngày</th>
             <th style="width:100px!important;">Đến ngày</th>
@@ -48,10 +48,10 @@
             </td>
           </tr>
           <tr *ngFor="let item of CampaignSearch; index as i" class="align-middle">
-            <td>
-              <mat-icon (click)="openUpdate(item.Id)" *ngIf="item.Step == 0" title="Sửa thông tin">edit</mat-icon>
-              <mat-icon *ngIf="item.Step == 1" title="Đang hoạt động">loop</mat-icon>
-              <mat-icon *ngIf="item.Step == 2" title="Đã kết thúc">not_interested</mat-icon>
+            <td style="width:15px;">
+              <mat-icon style="width:20px;height: 19px;" (click)="openUpdate(item.Id)" *ngIf="item.Step == 0" title="Sửa thông tin">edit</mat-icon>
+              <mat-icon style="width:20px;height: 20px;" *ngIf="item.Step == 1" title="Đang hoạt động">loop</mat-icon>
+              <mat-icon *ngIf="item.Step == 2" title="Đã kết thúc">done</mat-icon>
             </td>
             <td>{{item.Name}}</td>
             <td>{{item.DayBegin}}</td>
