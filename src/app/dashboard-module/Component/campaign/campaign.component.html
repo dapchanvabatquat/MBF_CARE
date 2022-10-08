@@ -7,7 +7,8 @@
     <div class="row">
       <h2 class="col-sm-6" style="font-weight: 500;">Danh sách chiến dịch</h2>
       <div class="mb-3 col-sm-6" style="text-align: right;">
-        <mat-icon style="vertical-align: middle;color:blue;" (click)="openCreate()" title="Tạo chiến dịch">add_circle_outline</mat-icon>
+        <mat-icon style="vertical-align: middle;color:blue;" (click)="openCreate()" title="Tạo chiến dịch">
+          add_circle_outline</mat-icon>
 
         <!-- <button class="btn btn-outline-secondary"  style="text-align: right; font-size: 5px!important;" type="button" id="button-addon3" (click)="openCreate()">
         </button> -->
@@ -25,20 +26,19 @@
     <!-- <div *ngIf="isLoading">
           </div> -->
     <div class="table-responsive">
-      <table class="table table-striped table-hover" >
+      <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <th style="text-align: center; width: 50px;">STT</th>
+            <th style="width:30px;"><mat-icon>loyalty</mat-icon></th>
             <th>Tên chiến dịch</th>
             <th style="width:100px!important;">Từ ngày</th>
             <th style="width:100px!important;">Đến ngày</th>
-            <th style="width:50px!important;">SMS</th>
+            <th style="width:50px!important;text-align: center;">SMS</th>
             <th style="width:50px!important;">Zalo</th>
             <th style="width:50px!important;">Facebook</th>
             <th style="width:80px!important;">Call Out</th>
             <th style="width:90px!important;"> Call center</th>
-            
-            <th style="width: 30px!important;"></th>
+
           </tr>
         </thead>
         <tbody style="border-top: none; width: 99%;">
@@ -48,16 +48,19 @@
             </td>
           </tr>
           <tr *ngFor="let item of CampaignSearch; index as i" class="align-middle">
-            <td style="text-align: center;">{{i + 1}}</td>
+            <td>
+              <mat-icon (click)="openUpdate(item.Id)" *ngIf="item.Step == 0" title="Sửa thông tin">edit</mat-icon>
+              <mat-icon *ngIf="item.Step == 1" title="Đang hoạt động">loop</mat-icon>
+              <mat-icon *ngIf="item.Step == 2" title="Đã kết thúc">not_interested</mat-icon>
+            </td>
             <td>{{item.Name}}</td>
             <td>{{item.DayBegin}}</td>
             <td>{{item.DayEnd}}</td>
-            <td><input onclick="return false" type="checkbox"  [(ngModel)]="item.Act_SMS"></td>
-            <td><input onclick="return false" type="checkbox"  [(ngModel)]="item.Act_Zalo"></td>
-            <td><input onclick="return false" type="checkbox"  [(ngModel)]="item.Act_FB"></td>
-            <td><input onclick="return false" type="checkbox"  [(ngModel)]="item.Act_CallOut"></td>
-            <td><input onclick="return false" type="checkbox"  [(ngModel)]="item.Act_AICallcenter"></td>
-            <td style="padding-left: 30px;"><mat-icon title="Sửa thông tin">edit</mat-icon></td>
+            <td style="text-align: center;"><input onclick="return false" type="checkbox" [(ngModel)]="item.Act_SMS"></td>
+            <td style="text-align: center;"><input onclick="return false" type="checkbox" [(ngModel)]="item.Act_Zalo"></td>
+            <td style="text-align: center;"><input onclick="return false" type="checkbox" [(ngModel)]="item.Act_FB"></td>
+            <td style="text-align: center;"><input onclick="return false" type="checkbox" [(ngModel)]="item.Act_CallOut"></td>
+            <td style="text-align: center;"><input onclick="return false" type="checkbox" [(ngModel)]="item.Act_AICallcenter"></td>
           </tr>
         </tbody>
       </table>
@@ -65,8 +68,8 @@
 
   </div>
 
-  <!-- <div>
+  <div>
     <app-pagination [Pagination]="Pagination" (changePage)="onChangePage($event)"></app-pagination>
-  </div> -->
+  </div>
 
 </div>

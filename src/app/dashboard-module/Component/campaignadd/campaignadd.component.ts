@@ -19,31 +19,31 @@ import { ToastrcustomService } from 'src/app/Interceptor/toastrcustom';
 export class CampaignaddComponent implements OnInit {
 
   selectedValueGroupId: any;
-  CampName: string ='';
+  CampName: string = '';
   date: Date = new Date();
- year: string = Date.now.toString().substring(0, 4)
- month: string = Date.now.toString().substring(5, 7);
- day: string  = Date.now.toString().substring(8, 10);
+  year: string = Date.now.toString().substring(0, 4)
+  month: string = Date.now.toString().substring(5, 7);
+  day: string = Date.now.toString().substring(8, 10);
 
 
   GroupId: number = 0;
   Name: string = '';
-  Description:  string = '';
+  Description: string = '';
   DayBegin: string = this.day + "/" + this.month + "/" + this.year;
-  DayEnd:  string =  this.day + "/" + this.month + "/" + this.year;
+  DayEnd: string = this.day + "/" + this.month + "/" + this.year;
   Act_SMS: boolean = false;
-  Act_SMS_Content:  string = '';
+  Act_SMS_Content: string = '';
   Act_Zalo: boolean = false;
-  Act_Zalo_Content:  string = '';
+  Act_Zalo_Content: string = '';
   Act_FB: boolean = false;
-  Act_FB_Content:  string = '';
+  Act_FB_Content: string = '';
   Act_CallOut: boolean = false;
-  Act_CallOut_Content:  string = '';
+  Act_CallOut_Content: string = '';
   Act_AICallcenter: boolean = false;
   Act_AICallcenter_Content: string = '';
 
-  
- 
+
+
   Camp: Campaign = {
     Id: 0,
     GroupId: 0,
@@ -81,8 +81,8 @@ export class CampaignaddComponent implements OnInit {
 
   CreateEditForm!: FormGroup
   submited: boolean = false;
-  listProductGroup: any=[];
-  listUnit: any=[];
+  listProductGroup: any = [];
+  listUnit: any = [];
   lockOrOpen: boolean = false;
 
   CampGroup: CampaignGroup = {
@@ -91,7 +91,7 @@ export class CampaignaddComponent implements OnInit {
   }
 
 
-  CampaignGroup!: Array<{Id: number, Name: string}>;
+  CampaignGroup!: Array<{ Id: number, Name: string }>;
 
 
 
@@ -99,14 +99,14 @@ export class CampaignaddComponent implements OnInit {
   @Input() isCreate: boolean = true;
   constructor(
     private customerService: CustomerService,
-     public dialogRef: MatDialogRef<CampaignaddComponent>,
-     private toatr: ToastrcustomService
-     ) {
-    
+    public dialogRef: MatDialogRef<CampaignaddComponent>,
+    private toatr: ToastrcustomService
+  ) {
+
 
 
     this.getCampaignGroup();
-    
+
   }
 
   ngOnInit(): void {
@@ -119,7 +119,7 @@ export class CampaignaddComponent implements OnInit {
     this.Data.subscribe((data: any) => {
       if (data) {
         this.CampaignGroup = data;
-        
+
       }
     })
   }
@@ -129,35 +129,36 @@ export class CampaignaddComponent implements OnInit {
 
 
   SaveData() {
-    
-this.Camp.Id = this.selectedValueGroupId;
-this.Camp.Name = this.Description;
-this.Camp.DayBegin = this.DayBegin;
-this.Camp.DayEnd = this.DayEnd;
-this.Camp.Act_SMS = this.Act_SMS;
-this.Camp.Act_SMS_Content = this.Act_SMS_Content;
-this.Camp.Act_Zalo = this.Act_Zalo;
-this.Camp.Act_Zalo_Content = this.Act_Zalo_Content;
-this.Camp.Act_FB = this.Act_FB;
-this.Camp.Act_FB_Content = this.Act_FB_Content;
-this.Camp.Act_CallOut = this.Act_CallOut
-this.Camp.Act_CallOut_Content = this.Act_CallOut_Content;
-this.Camp.Act_AICallcenter = this.Act_AICallcenter;
-this.Camp.Act_AICallcenter_Content = this.Act_AICallcenter_Content;
+    if (!this.selectedValueGroupId) {
+      this.toatr.showError("Bạn chưa chọn NHÓM CHIẾN DỊCH !")
+      return;
+    }
+    this.Camp.GroupId = this.selectedValueGroupId;
+    this.Camp.Name = this.Description;
+    this.Camp.DayBegin = this.DayBegin;
+    this.Camp.DayEnd = this.DayEnd;
+    this.Camp.Act_SMS = this.Act_SMS;
+    this.Camp.Act_SMS_Content = this.Act_SMS_Content;
+    this.Camp.Act_Zalo = this.Act_Zalo;
+    this.Camp.Act_Zalo_Content = this.Act_Zalo_Content;
+    this.Camp.Act_FB = this.Act_FB;
+    this.Camp.Act_FB_Content = this.Act_FB_Content;
+    this.Camp.Act_CallOut = this.Act_CallOut
+    this.Camp.Act_CallOut_Content = this.Act_CallOut_Content;
+    this.Camp.Act_AICallcenter = this.Act_AICallcenter;
+    this.Camp.Act_AICallcenter_Content = this.Act_AICallcenter_Content;
 
 
     this.Data = this.customerService.addCampaign(this.Camp);
-    if(this.Data)
-    {
-      this.Data.subscribe((data: any) =>{
-        if(data.State == "OK")
-        {
-this.toatr.showSuccess("Cập nhật thông tin thành công !");
+    if (this.Data) {
+      this.Data.subscribe((data: any) => {
+        if (data.State == "OK") {
+          this.toatr.showSuccess("Cập nhật thông tin thành công !");
         }
-        
+
       })
     }
-  
+
   }
 
 }

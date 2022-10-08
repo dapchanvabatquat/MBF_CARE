@@ -6,6 +6,7 @@ import { Campaign } from 'src/app/Model/Campaign';
 import { Pagination } from 'src/app/Model/Table';
 import { CustomerService } from 'src/app/Service/Customer/customer.service';
 import { CampaignaddComponent } from 'src/app/dashboard-module/Component/campaignadd/campaignadd.component';
+import { CampaignupdateComponent } from 'src/app/dashboard-module/Component/campaignupdate/campaignupdate.component';
 
 @Component({
   selector: 'app-campaign',
@@ -85,6 +86,7 @@ export class CampaignComponent implements OnInit {
     K9: boolean,
     K10: boolean,
     K11: boolean,
+    Step: number,
     totalPage: number,
     totalRecord: number
   }>;
@@ -140,6 +142,7 @@ export class CampaignComponent implements OnInit {
     this.Data2 = this.customerService.getCampaign(KeyWord, PageNumber, PageSize);
     this.Data2.subscribe((data: any) => {
       if (data) {
+        console.log(data);
         this.CampaignSearchData = data;
         this.CampaignSearch = data;
         this.CampaignSearchAll = this.CampaignSearchData;
@@ -181,6 +184,7 @@ export class CampaignComponent implements OnInit {
       if (result) {
         if (result.statusCode === 200) {
           this.toastr.showSuccess(result.message);
+          this.getCampaign("", 1, 10);
           this.Pagingdata(this.PageInfo);
         } else {
           this.toastr.showError(result.message);
@@ -188,6 +192,47 @@ export class CampaignComponent implements OnInit {
       }
     });
   }
+
+  openUpdate(Id: any) {
+
+//     for(let i = 0; i < this.CampaignSearch.length; i++)
+//     {
+//       let item = this.CampaignSearch[i];
+//       if(item.GroupId == selectedValueGroupId)
+//       {
+
+//       }
+//     }
+
+// this.Camp.Id = this.selectedValueGroupId;
+// this.Camp.Name = this.Description;
+// this.Camp.DayBegin = this.DayBegin;
+// this.Camp.DayEnd = this.DayEnd;
+// this.Camp.Act_SMS = this.Act_SMS;
+// this.Camp.Act_SMS_Content = this.Act_SMS_Content;
+// this.Camp.Act_Zalo = this.Act_Zalo;
+// this.Camp.Act_Zalo_Content = this.Act_Zalo_Content;
+// this.Camp.Act_FB = this.Act_FB;
+// this.Camp.Act_FB_Content = this.Act_FB_Content;
+// this.Camp.Act_CallOut = this.Act_CallOut
+// this.Camp.Act_CallOut_Content = this.Act_CallOut_Content;
+// this.Camp.Act_AICallcenter = this.Act_AICallcenter;
+// this.Camp.Act_AICallcenter_Content = this.Act_AICallcenter_Content;
+
+
+    const dialogRef = this.dialog.open(CampaignupdateComponent, { width: '1200px', height: '750px' });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.statusCode === 200) {
+          this.toastr.showSuccess(result.message);
+          this.Pagingdata(this.PageInfo);
+        } else {
+          this.toastr.showError(result.message);
+        }
+      }
+    });
+  }
+
 
   onChangePage(pageOfItems: any) {
 

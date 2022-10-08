@@ -34,6 +34,7 @@ import { KPIIndexComponent } from './component/kpi-index/kpi-index.component';
 import { TrendComponent } from './component/trend/trend.component';
 import { CampaignComponent } from './component/campaign/campaign.component';
 import { CampaignaddComponent } from 'src/app/dashboard-module/Component/campaignadd/campaignadd.component';
+import { CampaignupdateComponent } from './Component/campaignupdate/campaignupdate.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { CampaignaddComponent } from 'src/app/dashboard-module/Component/campaig
     TrendComponent,
     CampaignComponent,
     CampaignaddComponent,
+    CampaignupdateComponent,
   ],
   imports: [
     CommonModule,
