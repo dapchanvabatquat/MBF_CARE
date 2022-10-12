@@ -28,11 +28,8 @@
           <thead>
             <tr>
               <th style="text-align: center; width: 30px;">STT</th>
-              <th style="text-align: left; width:30px;">ARPU1</th>
-              <th style="text-align: left;width:30px;">ARPU2</th>
-              <th style="text-align: left;width:100px!important;">Mã nhóm</th>
               <th style="width:100px!important;">Tên nhóm</th>
-              <th>Chi tiết</th>
+              <th>Tính theo ARPU</th>
   
             </tr>
           </thead>
@@ -44,9 +41,6 @@
             </tr>
             <tr *ngFor="let item of CustomerGroupSearch; index as i" class="align-middle">
               <td style="text-align: center;">{{i + 1}}</td>
-              <td>{{item.ARPU1}}</td>
-              <td>{{item.ARPU2}}</td>
-              <td>{{item.Code}}</td>
               <td>{{item.Name}}</td>
               <td>{{item.Description}}</td>
   

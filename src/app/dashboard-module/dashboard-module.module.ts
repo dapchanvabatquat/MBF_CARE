@@ -37,6 +37,7 @@ import { CampaignaddComponent } from 'src/app/dashboard-module/Component/campaig
 import { CampaignupdateComponent } from './Component/campaignupdate/campaignupdate.component';
 import { CampaignCustomerComponent } from './component/campaign-customer/campaign-customer.component';
 import { CampaignCustomerDetailComponent } from './component/campaign-customer-detail/campaign-customer-detail.component';
+import { CampaignKpiComponent } from './Component/campaign-kpi/campaign-kpi.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import { CampaignCustomerDetailComponent } from './component/campaign-customer-d
     CampaignupdateComponent,
     CampaignCustomerComponent,
     CampaignCustomerDetailComponent,
+    CampaignKpiComponent,
   ],
   imports: [
     CommonModule,
