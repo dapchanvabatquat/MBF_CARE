@@ -97,4 +97,41 @@ export class CustomerService {
       }))
   }
 
+  
+  getCustomerGroup(KeyWord: string, PageNumber: number, PageSize: number)
+  {
+    this._Token = localStorage.getItem("Token");
+    return this.httpService.getCustomer('/getCustomerGroup', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize})
+    .pipe(map((data: lstCustomer) => {
+      return data;
+    }));
+  }
+
+  getCustomerBehavior(KeyWord: string, PageNumber: number, PageSize: number)
+  {
+    this._Token = localStorage.getItem("Token");
+    return this.httpService.getCustomer('/getCustomerBehavior', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize})
+    .pipe(map((data: lstCustomer) => {
+      return data;
+    }));
+  }
+
+  getCustomerSubject(KeyWord: string, PageNumber: number, PageSize: number)
+  {
+    this._Token = localStorage.getItem("Token");
+    return this.httpService.getCustomer('/getCustomerSubject', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize})
+    .pipe(map((data: lstCustomer) => {
+      return data;
+    }));
+  }
+
+  getCustomerByTrend(KeyWord: string, TrendId: number, PageNumber: number, PageSize: number)
+  {
+    this._Token = localStorage.getItem("Token");
+    return this.httpService.getCustomer('/getCustomerByTrend', this._Token, {KeyWord: KeyWord, TrendId: TrendId, PageNumber: PageNumber, PageSize: PageSize})
+    .pipe(map((data: lstCustomer) => {
+      return data;
+    }));
+  }
+  
 }
