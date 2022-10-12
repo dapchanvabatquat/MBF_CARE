@@ -1,0 +1,74 @@
+<div style="position: absolute; top: 40%; left: 40%;">
+    <!-- <mat-spinner></mat-spinner> -->
+</div>
+<div style="background-color: white; padding: 5px 5px;  border: 1px solid rgba(0,0,0,.125);">
+
+    <div class="row" style="height: 35px;">
+        <div class="row">
+            <h2 class="col-sm-6" style="font-weight: 500; padding-top: 5px; padding-left: 20px!important;">Khách hàng /
+                {{this.CampInfo.Name}}</h2>
+            <div class="mb-3 col-sm-6" style="text-align: right; padding-top: 5px;">
+                <!-- <div (click)="openCreate()" style="padding: 5px; padding-right: 8px!important;
+          border: solid 1px #4e44bf;
+          width: 135px;
+          float: right;
+          border-radius: 35px;">
+            <mat-icon style="vertical-align: middle;
+            color: blue;
+            margin-top: -1px;" title="Tạo chiến dịch">
+              add_circle_outline</mat-icon>
+            Tạo chiến dịch
+          </div> -->
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row" style="margin-top: 0px!important;">
+        <!-- <div *ngIf="isLoading">
+            </div> -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:35px!important;text-align: center;">KQ</th>
+                        <th style="width: 15px!important;text-align: justify">
+                            <mat-icon style="padding-top: 7px;" title="Trạng thái chiến dịch">list</mat-icon>
+                        </th>
+                        <th style="width:100px!important;text-align: justify;">Số thuê bao</th>
+                        <th style="text-align: justify;">Khách hàng</th>
+                        <th style="width:125px!important;text-align: center;">Ngày chăm sóc</th>
+                        <th style="width:125px!important;text-align: center;">Ngày cập nhật</th>
+                    </tr>
+                </thead>
+                <tbody style="border-top: none; width: 99%;">
+                    <tr *ngIf="loadding">
+                        <td colspan="5">
+                            <app-loading [isLoading]="loadding"></app-loading>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let item of CampaignSearch; index as i" class="align-middle">
+                        <td style="text-align: center;">
+                            <mat-icon style="font-size: 18px; height: 19px;">subdirectory_arrow_right</mat-icon>
+                        </td>
+                        <td style="width:15px; text-align: center;">
+                            <mat-icon (click) = "openDetail(item.CampaignId,item.CustomerId,item.Name,item.PhoneNumber)" style="font-size: 18px; height: 19px;">library_books</mat-icon>
+                        </td>
+                        <td style="text-align: left;">{{item.PhoneNumber}}</td>
+                        <td>{{item.Name}}</td>
+                        <td>{{item.LastPush}}</td>
+                        <td>{{item.LastPull}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div>
+        <app-pagination [Pagination]="Pagination" (changePage)="onChangePage($event)"></app-pagination>
+    </div>
+
+</div>

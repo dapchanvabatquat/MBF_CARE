@@ -12,6 +12,7 @@ import { CampaignGroupComponent } from './component/campaign-group/campaign-grou
 import { KPIIndexComponent } from './component/kpi-index/kpi-index.component';
 import { TrendComponent } from './component/trend/trend.component';
 import { CampaignComponent } from './component/campaign/campaign.component';
+import { CampaignCustomerComponent } from './component/campaign-customer/campaign-customer.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
       {
         path: 'chiendich',
         component: CampaignComponent
+      },
+      {
+        path: 'chiendich-khachhang/:id',
+        component: CampaignCustomerComponent
       },
       { path: '404-not-found', component: NotfoundComponent },
     ]

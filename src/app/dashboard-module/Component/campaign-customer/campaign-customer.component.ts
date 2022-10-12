@@ -2,24 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ToastrcustomService } from 'src/app/Interceptor/toastrcustom';
-import { Campaign } from 'src/app/Model/Campaign';
+import { Campaign, CampaignCustomers } from 'src/app/Model/Campaign';
 import { Pagination } from 'src/app/Model/Table';
 import { CustomerService } from 'src/app/Service/Customer/customer.service';
-import { CampaignaddComponent } from 'src/app/dashboard-module/Component/campaignadd/campaignadd.component';
-import { CampaignupdateComponent } from 'src/app/dashboard-module/Component/campaignupdate/campaignupdate.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CampaignCustomerDetailComponent } from '../campaign-customer-detail/campaign-customer-detail.component';
 
 @Component({
-  selector: 'app-campaign',
-  templateUrl: './campaign.component.html',
-  styleUrls: ['./campaign.component.css']
+  selector: 'app-campaign-customer',
+  templateUrl: './campaign-customer.component.html',
+  styleUrls: ['./campaign-customer.component.css']
 })
-
-export class CampaignComponent implements OnInit {
+export class CampaignCustomerComponent implements OnInit {
 
   Data: any;
   Data1: any;
   Data2: any;
+
+  CampaignId: number = 0;
 
   currentPage: any;
   pageSize: any;
@@ -28,7 +28,7 @@ export class CampaignComponent implements OnInit {
 
   loadding: boolean = false;
 
-  Camp: Campaign = {
+  CampInfo: Campaign = {
     Id: 0,
     GroupId: 0,
     Name: '',
@@ -61,34 +61,76 @@ export class CampaignComponent implements OnInit {
     PageSize: 10
   }
 
+  Camp: CampaignCustomers = {
+    CampaignId: 0,
+    CustomerId: 0,
+    Name: "",
+    PhoneNumber: "",
+    K1: false,
+    K1Value: "",
+    K2: false,
+    K2Value: "",
+    K3: false,
+    K3Value: "",
+    K4: false,
+    K4Value: "",
+    K5: false,
+    K5Value: "",
+    K6: false,
+    K6Value: "",
+    K7: false,
+    K7Value: "",
+    K8: false,
+    K8Value: "",
+    K9: false,
+    K9Value: "",
+    K10: false,
+    K10Value: "",
+    K11: false,
+    K11Value: "",
+    LastPush: "",
+    LastPull: "",
+    totalRecord: 0,
+    totalPage: 0,
+    PageNumber: 1,
+    PageSize: 10
+  }
+
   CampaignSearchData!: Observable<any>;
 
   CampaignSearch!: Array<{
-    Id: number,
-    GroupId: number,
+    CampaignId: number,
+    CustomerId: number,
     Name: string,
-    Description: string,
-    DayBegin: string,
-    DayEnd: string,
-    Act_SMS: boolean,
-    Act_Zalo: boolean,
-    Act_FB: boolean,
-    Act_CallOut: boolean,
-    Act_AICallcenter: boolean,
+    PhoneNumber: string,
     K1: boolean,
+    K1Value: string,
     K2: boolean,
+    K2Value: string,
     K3: boolean,
+    K3Value: string,
     K4: boolean,
+    K4Value: string,
     K5: boolean,
+    K5Value: string,
     K6: boolean,
+    K6Value: string,
     K7: boolean,
+    K7Value: string,
     K8: boolean,
+    K8Value: string,
     K9: boolean,
+    K9Value: string,
     K10: boolean,
+    K10Value: string,
     K11: boolean,
-    Step: number,
+    K11Value: string,
+    LastPush: string,
+    LastPull: string,
+    totalRecord: number,
     totalPage: number,
-    totalRecord: number
+    PageNumber: number,
+    PageSize: number
   }>;
 
   CampaignSearchAll: any;
@@ -111,7 +153,9 @@ export class CampaignComponent implements OnInit {
     private customerService: CustomerService,
     public dialog: MatDialog,
     private router: Router,
-    private toastr: ToastrcustomService){
+    private route: ActivatedRoute,
+    private toastr: ToastrcustomService) {
+    this.getCampaignById();
     this.getCampaign("", 1, 10);
   }
 
@@ -120,7 +164,10 @@ export class CampaignComponent implements OnInit {
   }
 
   getCampaign(KeyWord: string, PageNumber: number, PageSize: number) {
-    this.Data2 = this.customerService.getCampaign(KeyWord, PageNumber, PageSize);
+
+    this.CampaignId = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.Data2 = this.customerService.getCampaignCustomers(KeyWord, this.CampaignId, PageNumber, PageSize);
     this.Data2.subscribe((data: any) => {
       if (data) {
         this.CampaignSearchData = data;
@@ -136,17 +183,6 @@ export class CampaignComponent implements OnInit {
           }
           let item = this.CampaignSearch[i];
 
-          let year = item.DayBegin.substring(0, 4)
-          let month = item.DayBegin.substring(5, 7);
-          let day = item.DayBegin.substring(8, 10);
-
-          let year1 = item.DayEnd.substring(0, 4)
-          let month1 = item.DayEnd.substring(5, 7);
-          let day1 = item.DayEnd.substring(8, 10);
-
-          item.DayBegin = day + "/" + month + "/" + year;
-          item.DayEnd = day1 + "/" + month1 + "/" + year1;
-
           this.Pagination.pageSize = PageSize;
           this.Pagination.totalPage = item.totalPage;
           this.Pagination.totalRecord = item.totalRecord;
@@ -157,29 +193,24 @@ export class CampaignComponent implements OnInit {
     })
   }
 
-  openCreate() {
-    const dialogRef = this.dialog.open(CampaignaddComponent, {
-      width: '1100px', data: {
-          Id: 0,
+  getCampaignById() {
+    this.CampaignId = Number(this.route.snapshot.paramMap.get('id'));
+    this.Data = this.customerService.getCampaignbyId(this.CampaignId);
+    this.Data.subscribe((data: any) => {
+      if (data) {
+        this.CampInfo.Name = data.Name;
       }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        if (result.statusCode === 200) {
-          this.toastr.showSuccess(result.message);
-          this.getCampaign("", 1, 10);
-          this.Pagingdata(this.PageInfo);
-        } else {
-          this.toastr.showError(result.message);
-        }
-      }
-    });
+    })
   }
 
-  openUpdate(Id:number) {
-    const dialogRef = this.dialog.open(CampaignupdateComponent, {
-      width: '1100px', data: {
-          Id: Id,
+  openDetail(CampaignId: number, CustomerId:number,CustomerName:string,PhoneNumber:string) {
+    const dialogRef = this.dialog.open(CampaignCustomerDetailComponent, {
+      width: '1000px', data: {
+        CampaignId: CampaignId,
+        CampaignName:this.CampInfo.Name,
+        CustomerId: CustomerId,
+        CustomerName:CustomerName,
+        PhoneNumber:PhoneNumber
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -205,8 +236,8 @@ export class CampaignComponent implements OnInit {
     this.getCampaign("", PageInfo.page, PageInfo.pageSize)
   }
 
-  goToCampaingCustomerPage(Id:any) {
-    this.router.navigateByUrl('Home/chiendich-khachhang/'+Id);
-}
+  goToCampaingCustomerPage(Id: any) {
+    this.router.navigateByUrl('Home/chiendich-khachhang/' + Id);
+  }
 
 }

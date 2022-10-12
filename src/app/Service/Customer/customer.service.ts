@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { CampaignGroup } from 'src/app/Model/Campaign';
+import { CampaignGroup, CampaignStep } from 'src/app/Model/Campaign';
 import { lstCustomer } from 'src/app/Model/Customer';
 import { CommonserviceService } from '../CommonService/commonservice.service';
 
@@ -10,64 +10,83 @@ import { CommonserviceService } from '../CommonService/commonservice.service';
 export class CustomerService {
 
   _urlApi: string = "";
-    _Token: any = "";
+  _Token: any = "";
   constructor(
     private httpService: CommonserviceService) {
     this._urlApi = httpService._urlApi;
   }
 
-  addCustomers()
-  {
+  addCustomers() {
     this._Token = localStorage.getItem("Token");
     return this.httpService.addCustomers('/addCustomers', this._Token);
   }
 
-  updateGroup()
-  {
+  updateGroup() {
     this._Token = localStorage.getItem("Token");
     return this.httpService.updateGroup('/updateGroup', this._Token);
   }
 
-  addCampaign(Camp: CampaignGroup)
-  {
+  addCampaign(Camp: CampaignGroup) {
     this._Token = localStorage.getItem("Token");
     return this.httpService.addCampaign('/addCampaign', this._Token, Camp);
   }
 
-  getCustomer(KeyWord: string, PageNumber: number, PageSize: number)
-  {
+  editCampaign(Camp: CampaignGroup) {
     this._Token = localStorage.getItem("Token");
-    return this.httpService.getCustomer('/getCustomer', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize})
-    .pipe(map((data: lstCustomer) => {
-      return data;
-    }));
+    return this.httpService.addCampaign('/editCampaign', this._Token, Camp);
   }
 
-  getCampaign(KeyWord: string, PageNumber: number, PageSize: number)
-  {
+  stepCampaign(Camp: CampaignStep) {
     this._Token = localStorage.getItem("Token");
-    return this.httpService.getCampaign('/getCampaign', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize})
-    .pipe(map((data: lstCustomer) => {
-      return data;
-    }));
+    return this.httpService.addCampaign('/stepCampaign', this._Token, Camp);
   }
 
-  getCampaignGroup(KeyWord: string, PageNumber: number, PageSize: number)
-  {
+  getCustomer(KeyWord: string, PageNumber: number, PageSize: number) {
     this._Token = localStorage.getItem("Token");
-    return this.httpService.getCampaign('/getCampaignGroup', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize})
-    .pipe(map((data: lstCustomer) => {
-      return data;
-    }));
+    return this.httpService.getCustomer('/getCustomer', this._Token, { KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize })
+      .pipe(map((data: lstCustomer) => {
+        return data;
+      }));
   }
 
-  getCampaignKpi(KeyWord: string, PageNumber: number, PageSize: number)
-  {
+  getCampaign(KeyWord: string, PageNumber: number, PageSize: number) {
     this._Token = localStorage.getItem("Token");
-    return this.httpService.getCampaign('/getCampaignKpi', this._Token, {KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize})
-    .pipe(map((data: lstCustomer) => {
-      return data;
-    }));
+    return this.httpService.getCampaign('/getCampaign', this._Token, { KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize })
+      .pipe(map((data: lstCustomer) => {
+        return data;
+      }));
+  }
+
+  getCampaignCustomers(KeyWord: string, CampaignId: number, PageNumber: number, PageSize: number) {
+    this._Token = localStorage.getItem("Token");
+    return this.httpService.getCampaign('/getCampaignCustomers', this._Token, { KeyWord: KeyWord, CampaignId: CampaignId, PageNumber: PageNumber, PageSize: PageSize })
+      .pipe(map((data: lstCustomer) => {
+        return data;
+      }));
+  }
+
+  getCampaignGroup(KeyWord: string, PageNumber: number, PageSize: number) {
+    this._Token = localStorage.getItem("Token");
+    return this.httpService.getCampaign('/getCampaignGroup', this._Token, { KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize })
+      .pipe(map((data: lstCustomer) => {
+        return data;
+      }));
+  }
+
+  getCampaignKpi(KeyWord: string, PageNumber: number, PageSize: number) {
+    this._Token = localStorage.getItem("Token");
+    return this.httpService.getCampaign('/getCampaignKpi', this._Token, { KeyWord: KeyWord, PageNumber: PageNumber, PageSize: PageSize })
+      .pipe(map((data: lstCustomer) => {
+        return data;
+      }));
+  }
+
+  getCampaignbyId(Id: number) {
+    this._Token = localStorage.getItem("Token");
+    return this.httpService.postRequest('/getCampaignById', this._Token, { Id: Id })
+      .pipe(map((data: lstCustomer) => {
+        return data;
+      }));
   }
 
 

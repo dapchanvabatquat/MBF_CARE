@@ -35,6 +35,8 @@ import { TrendComponent } from './component/trend/trend.component';
 import { CampaignComponent } from './component/campaign/campaign.component';
 import { CampaignaddComponent } from 'src/app/dashboard-module/Component/campaignadd/campaignadd.component';
 import { CampaignupdateComponent } from './Component/campaignupdate/campaignupdate.component';
+import { CampaignCustomerComponent } from './component/campaign-customer/campaign-customer.component';
+import { CampaignCustomerDetailComponent } from './component/campaign-customer-detail/campaign-customer-detail.component';
 
 
 @NgModule({
@@ -61,6 +63,8 @@ import { CampaignupdateComponent } from './Component/campaignupdate/campaignupda
     CampaignComponent,
     CampaignaddComponent,
     CampaignupdateComponent,
+    CampaignCustomerComponent,
+    CampaignCustomerDetailComponent,
   ],
   imports: [
     CommonModule,

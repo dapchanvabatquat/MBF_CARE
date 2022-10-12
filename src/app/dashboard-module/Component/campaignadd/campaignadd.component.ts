@@ -1,11 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { AccountService } from 'src/app/Service/Account/account.service';
-import { Observable } from 'rxjs';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomerService } from 'src/app/Service/Customer/customer.service';
 import { Campaign, CampaignGroup } from 'src/app/Model/Campaign';
 import { ToastrcustomService } from 'src/app/Interceptor/toastrcustom';
+
 @Component({
   selector: 'app-campaignadd',
   templateUrl: './campaignadd.component.html',
@@ -13,44 +12,15 @@ import { ToastrcustomService } from 'src/app/Interceptor/toastrcustom';
 })
 
 
-
-
-
 export class CampaignaddComponent implements OnInit {
-
-  selectedValueGroupId: any;
-  CampName: string = '';
-  date: Date = new Date();
-  year: string = Date.now.toString().substring(0, 4)
-  month: string = Date.now.toString().substring(5, 7);
-  day: string = Date.now.toString().substring(8, 10);
-
-
-  GroupId: number = 0;
-  Name: string = '';
-  Description: string = '';
-  DayBegin: string = this.day + "/" + this.month + "/" + this.year;
-  DayEnd: string = this.day + "/" + this.month + "/" + this.year;
-  Act_SMS: boolean = false;
-  Act_SMS_Content: string = '';
-  Act_Zalo: boolean = false;
-  Act_Zalo_Content: string = '';
-  Act_FB: boolean = false;
-  Act_FB_Content: string = '';
-  Act_CallOut: boolean = false;
-  Act_CallOut_Content: string = '';
-  Act_AICallcenter: boolean = false;
-  Act_AICallcenter_Content: string = '';
-
-
 
   Camp: Campaign = {
     Id: 0,
     GroupId: 0,
     Name: '',
     Description: '',
-    DayBegin: '',
-    DayEnd: '',
+    DayBegin: new Date().toDateString(),
+    DayEnd: new Date().toDateString(),
     Act_SMS: false,
     Act_SMS_Content: '',
     Act_Zalo: false,
@@ -90,30 +60,23 @@ export class CampaignaddComponent implements OnInit {
     Name: ''
   }
 
-
   CampaignGroup!: Array<{ Id: number, Name: string }>;
   CampaignKpi!: Array<{ Id: number, Check: boolean, Code: string; Name: string }>;
 
-
-
-  @Input() customerId: number = 0;
-  @Input() isCreate: boolean = true;
   constructor(
     private customerService: CustomerService,
     public dialogRef: MatDialogRef<CampaignaddComponent>,
-    private toatr: ToastrcustomService
-  ) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private toatr: ToastrcustomService) {
 
-
-
+    this.Camp.Id = this.data.Id;
     this.getCampaignGroup();
     this.getCampaignKpi();
 
   }
 
   ngOnInit(): void {
-    //Add new
-
+    // console.log(this.data);
   }
 
   getCampaignGroup() {
@@ -121,7 +84,6 @@ export class CampaignaddComponent implements OnInit {
     this.Data.subscribe((data: any) => {
       if (data) {
         this.CampaignGroup = data;
-
       }
     })
   }
@@ -131,50 +93,93 @@ export class CampaignaddComponent implements OnInit {
     this.Data.subscribe((data: any) => {
       if (data) {
         this.CampaignKpi = data;
-        for(let i = 0; i<this.CampaignKpi.length; i++)
-        {
-          let item = this.CampaignKpi[i];
-          item.Check = false;
-        }
-        console.log("133", this.CampaignKpi)
-
-
       }
     })
   }
 
-
-
-
-
   SaveData() {
-    if (!this.selectedValueGroupId) {
-      this.toatr.showError("Bạn chưa chọn NHÓM CHIẾN DỊCH !")
+
+    if (this.Camp.GroupId == 0) {
+      this.toatr.showError("Bạn chưa xác định nhóm chiến dịch!")
       return;
     }
-    this.Camp.GroupId = this.selectedValueGroupId;
-    this.Camp.Name = this.Name;
-    this.Camp.DayBegin = this.DayBegin;
-    this.Camp.DayEnd = this.DayEnd;
-    this.Camp.Act_SMS = this.Act_SMS;
-    this.Camp.Act_SMS_Content = this.Act_SMS_Content;
-    this.Camp.Act_Zalo = this.Act_Zalo;
-    this.Camp.Act_Zalo_Content = this.Act_Zalo_Content;
-    this.Camp.Act_FB = this.Act_FB;
-    this.Camp.Act_FB_Content = this.Act_FB_Content;
-    this.Camp.Act_CallOut = this.Act_CallOut
-    this.Camp.Act_CallOut_Content = this.Act_CallOut_Content;
-    this.Camp.Act_AICallcenter = this.Act_AICallcenter;
-    this.Camp.Act_AICallcenter_Content = this.Act_AICallcenter_Content;
 
+    if (this.Camp.Name == "") {
+      this.toatr.showError("Bạn chưa nhập tên chiến dịch chiến dịch!")
+      return;
+    }
+
+    if (this.Camp.DayBegin == "" || this.Camp.DayEnd == "") {
+      this.toatr.showError("Bạn chưa xác định khoảng thời gian chạy chiến dịch!")
+      return;
+    }
+
+    if (!this.Camp.Act_SMS && !this.Camp.Act_SMS && !this.Camp.Act_FB && !this.Camp.Act_CallOut && !this.Camp.Act_AICallcenter) {
+      this.toatr.showError("Bạn chưa xác định kênh truyền thông!")
+      return;
+    }
+
+    for (let i = 0; i < this.CampaignKpi.length; i++) {
+      if (this.CampaignKpi[i].Code == "K1") {
+        this.Camp.K1 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K2") {
+        this.Camp.K2 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K3") {
+        this.Camp.K3 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K4") {
+        this.Camp.K4 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K5") {
+        this.Camp.K5 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K6") {
+        this.Camp.K6 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K7") {
+        this.Camp.K7 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K8") {
+        this.Camp.K8 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K9") {
+        this.Camp.K9 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K10") {
+        this.Camp.K10 = this.CampaignKpi[i].Check;
+      }
+      else if (this.CampaignKpi[i].Code == "K11") {
+        this.Camp.K11 = this.CampaignKpi[i].Check;
+      }
+      else {
+        this.CampaignKpi[i].Check = false;
+      }
+    }
+
+    if (!this.Camp.K1 && !this.Camp.K2 && !this.Camp.K3 && !this.Camp.K4 &&
+      !this.Camp.K5 && !this.Camp.K6 && !this.Camp.K7 && !this.Camp.K8 && !this.Camp.K9 && !this.Camp.K10 && !this.Camp.K11) {
+      this.toatr.showError("Bạn chưa xác định KPI đánh giá chiến dịch!")
+      return;
+    }
 
     this.Data = this.customerService.addCampaign(this.Camp);
     if (this.Data) {
       this.Data.subscribe((data: any) => {
         if (data.State == "OK") {
-          this.toatr.showSuccess("Cập nhật thông tin thành công !");
-        }
 
+          let data = {
+            statusCode: 200,
+            message: 'Cập nhật thông tin thành công!'
+          }
+
+          this.dialogRef.close(data);
+
+        }
+        else {
+          this.toatr.showError("Tạo chiến dịch thất bại!");
+        }
       })
     }
 

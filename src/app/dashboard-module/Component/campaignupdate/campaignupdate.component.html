@@ -1,1 +1,257 @@
-<p>campaignupdate works!</p>
+<h2 mat-dialog-title>
+    <div style="padding-bottom: 5px; border-bottom: solid 1px rgb(177, 166, 166);">Cập nhật chiến dịch</div>
+</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <table style="width:100%">
+            <tr>
+                <td style="width: 112px; text-align: right; padding-right: 10px;">
+                    Nhóm chiến dịch <span style="color: red;">(*)</span>:
+                </td>
+                <td>
+                    <select [(ngModel)]="this.Camp.GroupId" class="form-control">
+                        <option *ngFor="let item of CampaignGroup" [value]='item.Id'>
+                            {{item.Name}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table style="width:100%; margin-top: 5px;">
+            <tr>
+                <td style="width: 112px; text-align: right; padding-right: 10px;">
+                    Tên chiến dịch <span style="color: red;">(*)</span>:
+                </td>
+                <td>
+                    <textarea style="height: 40px;" [(ngModel)]="this.Camp.Name" type="text"
+                        class="form-control"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+
+            <table style="width:100%; margin-top: 5px;">
+                <tr>
+                    <td style="width: 100px; text-align: right; padding-right: 10px;">
+                        Diễn giải:
+                    </td>
+                    <td>
+                        <textarea style="height: 100px;" type="text" [(ngModel)]="this.Camp.Description"
+                            class="form-control">
+                        </textarea>
+                    </td>
+                </tr>
+            </table>
+
+            <table style="width:100%; margin-top: 0px;">
+                <tr>
+                    <td style="width: 100px; text-align: right; padding-right: 10px;">
+                        Thời gian:
+                    </td>
+                    <td>
+                        <table style="width:100%; margin-top: 5px;">
+                            <tr>
+                                <td>
+                                    <input type="date" displayFormat="DD/MM/YYYY"
+                                        [ngModel]="this.Camp.DayBegin | date:'yyyy-MM-dd'"
+                                        (ngModelChange)="this.Camp.DayBegin = $event" min="2015-01-01" max="2025-12-31"
+                                        class="form-control">
+                                </td>
+                                <td></td>
+                                <td>
+                                    <input type="date" displayFormat="DD/MM/YYYY"
+                                        [ngModel]="this.Camp.DayEnd | date:'yyyy-MM-dd'"
+                                        (ngModelChange)="this.Camp.DayEnd = $event" min="2015-01-01" max="2025-12-31"
+                                        class="form-control">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%; margin-top: 0px;">
+                <tr>
+                    <td
+                        style="width: 100px; text-align: right; padding-right: 10px; padding-top: 7px; font-weight: bold; vertical-align: top;">
+                        KPI đánh giá:
+                    </td>
+                    <td>
+                        <table style="width:100%;" *ngFor="let item of CampaignKpi">
+                            <tr>
+                                <td style="width: 20px; vertical-align: top; padding-top: 5px;">
+                                    <input type="checkbox" [(ngModel)]="item.Check">
+                                </td>
+                                <td style="vertical-align: top; padding-top: 5px;">
+                                    {{item.Name}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="col-lg-6" style="padding-right: 0px!important;">
+
+            <table style="width:100%;">
+                <tr>
+                    <td>
+                        <b>Kênh truyền thông:</b>
+                    </td>
+                </tr>
+            </table>
+
+            <table style="width:100%; margin-top: 0px;">
+                <tr>
+                    <td>
+                        <table style="width:100%; margin-top: 0px;">
+                            <tr>
+                                <td style="width: 20px;">
+                                    <input style="padding-top: 5px;vertical-align: middle;" type="checkbox"
+                                        [(ngModel)]="this.Camp.Act_SMS">
+                                </td>
+                                <td style="padding-top: 3px;">
+                                    SMS/(Nội dung truyền thông)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+
+                                    <textarea *ngIf="this.Camp.Act_SMS == true" style="height: 55px;" type="text"
+                                        [(ngModel)]="this.Camp.Act_SMS_Content" class="form-control">
+                                    </textarea>
+
+                                    <textarea readonly="true" *ngIf="this.Camp.Act_SMS == false" style="height: 55px;"
+                                        type="text" [(ngModel)]="this.Camp.Act_SMS_Content" class="form-control">
+                                    </textarea>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="width:100%; margin-top: 5px;">
+                            <tr>
+                                <td style="width: 20px;">
+                                    <input style="padding-top: 5px;vertical-align: middle;" type="checkbox"
+                                        [(ngModel)]="this.Camp.Act_Zalo">
+                                </td>
+                                <td style="padding-top: 3px;">
+                                    Zalo/(Nội dung truyền thông)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+
+                                    <textarea *ngIf="this.Camp.Act_Zalo == true" style="height: 80px;" type="text"
+                                        [(ngModel)]="this.Camp.Act_Zalo_Content" class="form-control">
+                                    </textarea>
+
+                                    <textarea readonly="true" *ngIf="this.Camp.Act_Zalo == false" style="height: 80px;"
+                                        type="text" [(ngModel)]="this.Camp.Act_Zalo_Content" class="form-control">
+                                    </textarea>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="width:100%; margin-top: 5px;">
+                            <tr>
+                                <td style="width: 20px;">
+                                    <input style="padding-top: 5px;vertical-align: middle;" type="checkbox"
+                                        [(ngModel)]="this.Camp.Act_FB">
+                                </td>
+                                <td style="padding-top: 3px;">
+                                    Facebook/(Nội dung truyền thông)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+
+                                    <textarea *ngIf="this.Camp.Act_FB == true" style="height: 80px;" type="text"
+                                        [(ngModel)]="this.Camp.Act_FB_Content" class="form-control">
+                                    </textarea>
+
+                                    <textarea readonly="true" *ngIf="this.Camp.Act_FB == false" style="height: 80px;"
+                                        type="text" [(ngModel)]="this.Camp.Act_FB_Content" class="form-control">
+                                    </textarea>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="width:100%; margin-top: 5px;">
+                            <tr>
+                                <td style="width: 20px;">
+                                    <input style="padding-top: 5px;vertical-align: middle;" type="checkbox"
+                                        [(ngModel)]="this.Camp.Act_CallOut">
+                                </td>
+                                <td style="padding-top: 3px;">
+                                    CallOut/(Nội dung truyền thông)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+
+                                    <textarea *ngIf="this.Camp.Act_CallOut == true" style="height: 80px;" type="text"
+                                        [(ngModel)]="this.Camp.Act_CallOut_Content" class=" form-control">
+                                    </textarea>
+
+                                    <textarea readonly="true" *ngIf="this.Camp.Act_CallOut == false"
+                                        style="height: 80px;" type="text" [(ngModel)]="this.Camp.Act_CallOut_Content"
+                                        class="form-control">
+                                    </textarea>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="width:100%; margin-top: 5px; margin-bottom: 20px;">
+                            <tr>
+                                <td style="width: 20px;">
+                                    <input style="padding-top: 5px;vertical-align: middle;" type="checkbox"
+                                        [(ngModel)]="this.Camp.Act_AICallcenter">
+                                </td>
+                                <td style="padding-top: 3px;">
+                                    AI CallCenter/(Nội dung truyền thông)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+
+                                    <textarea *ngIf="this.Camp.Act_AICallcenter == true" style="height: 80px;"
+                                        type="text" [(ngModel)]="this.Camp.Act_CallOut_Content" class="form-control">
+                                    </textarea>
+
+                                    <textarea readonly="true" *ngIf="this.Camp.Act_AICallcenter == false"
+                                        style="height: 80px;" type="text" [(ngModel)]="this.Camp.Act_CallOut_Content"
+                                        class="form-control">
+                                    </textarea>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="start">
+
+    <!-- <button type="button" class="btn btn-primary" (click)="SaveData()">Ghi nhận</button>
+    <button type="button" class="btn btn-danger" (click)="delCampain()" style="margin-left: 10px;" mat-button
+        mat-dialog-close>Hủy chiến dịch</button>
+    <button type="button" class="btn btn-info" style="margin-left: 10px;" mat-button mat-dialog-close>Đóng, bỏ
+        qua</button> -->
+
+    <button mat-button mat-dialog-close class="btn btn-info">&nbsp;&nbsp;&nbsp;&nbsp;Đóng&nbsp;&nbsp;&nbsp;&nbsp;</button>&nbsp;&nbsp;
+    <button mat-button (click)="delCampain()" class="btn btn-danger">Hủy chiến dịch</button>&nbsp;&nbsp;
+    <button mat-button cdkFocusInitial (click)="SaveData()" class="btn btn-primary">Lưu thông tin</button>
+</mat-dialog-actions>

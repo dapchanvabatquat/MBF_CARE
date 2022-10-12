@@ -30,10 +30,49 @@ export interface Campaign {
     KeyWord: string,
     PageNumber: number,
     PageSize: number
+}
 
+export interface CampaignCustomers {
+    CampaignId: number,
+    CustomerId: number,
+    Name: string,
+    PhoneNumber: string,
+    K1: boolean,
+    K1Value: string,
+    K2: boolean,
+    K2Value: string,
+    K3: boolean,
+    K3Value: string,
+    K4: boolean,
+    K4Value: string,
+    K5: boolean,
+    K5Value: string,
+    K6: boolean,
+    K6Value: string,
+    K7: boolean,
+    K7Value: string,
+    K8: boolean,
+    K8Value: string,
+    K9: boolean,
+    K9Value: string,
+    K10: boolean,
+    K10Value: string,
+    K11: boolean,
+    K11Value: string,
+    LastPush:string,
+    LastPull:string,
+    totalRecord: number,
+    totalPage: number,
+    PageNumber: number,
+    PageSize: number
 }
 
 export interface CampaignGroup {
     Id: number;
     Name: string;
-  }
+}
+
+export interface CampaignStep {
+    CampaignId: number;
+    Step: number;
+}
