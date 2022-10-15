@@ -17,9 +17,9 @@ export class AccountService {
     this._urlApi = httpService._urlApi;
   }
 
-  getToken(Org: OrgInfo) {
-    if (Org.username) {
-      return this.httpService.getToken(Org.username, Org.password);
+  getToken(User: UserLogin) {
+    if (User.TaiKhoan) {
+      return this.httpService.getToken(User.TaiKhoan,"");
     }
     else {
       return null;

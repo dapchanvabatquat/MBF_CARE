@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   onLogin() {
     this.loadding = true;
 
-    let result = this.share.getToken(this.Org);
+    let result = this.share.getToken(this.User);
 
     if (result != null) {
 
